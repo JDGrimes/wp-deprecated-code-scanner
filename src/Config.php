@@ -26,8 +26,9 @@ class Config {
 	 */
 	protected $functions = [
 		'_deprecated_function' => [
-			'type' => 'function',
+			'type'        => 'function',
 			'version_arg' => 1,
+			'alt_arg'     => 2,
 		],
 	];
 

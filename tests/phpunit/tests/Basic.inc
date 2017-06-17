@@ -17,4 +17,8 @@ class A {
 	}
 }
 
+function c() {
+	_deprecated_function( __FUNCTION__, 4.5, 'd' );
+}
+
 // EOF

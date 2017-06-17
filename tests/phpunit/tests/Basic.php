@@ -26,13 +26,21 @@ class Basic extends TestCase {
 		return [
 			[
 				'version' => '4.8.0',
-				'type' => 'function',
-				'element' => 'a'
+				'type'    => 'function',
+				'element' => 'a',
+				'alt'     => null,
 			],
 			[
 				'version' => '1.2.3',
-				'type' => 'function',
-				'element' => 'A::b'
+				'type'    => 'function',
+				'element' => 'A::b',
+				'alt'     => null,
+			],
+			[
+				'version' => '4.5',
+				'type'    => 'function',
+				'element' => 'c',
+				'alt'     => 'd',
 			],
 		];
 	}

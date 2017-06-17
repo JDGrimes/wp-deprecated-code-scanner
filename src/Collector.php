@@ -32,14 +32,16 @@ class Collector {
 	 * @since 0.1.0
 	 *
 	 * @param string $element The element name.
-	 * @param string $version The version this element was deprecated.
 	 * @param string $type    The type of element this is.
+	 * @param string $version The version this element was deprecated.
+	 * @param string $alt     The alternative, if any.
 	 */
-	public function add( $element, $version, $type ) {
+	public function add( $element, $type, $version, $alt = null ) {
 		$this->elements[] = [
 			'element' => $element,
 			'version' => $version,
-			'type' => $type,
+			'alt'     => $alt,
+			'type'    => $type,
 		];
 	}
 

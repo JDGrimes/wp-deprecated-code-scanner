@@ -68,7 +68,7 @@ class Run extends Command {
 		$results = [];
 
 		foreach ( $collector->get() as $item ) {
-			$results[ $item['version'] ][] = $item['element'];
+			$results[ $item['version'] ][ $item['element'] ] = $item;
 		}
 
 		ksort( $results );
@@ -77,12 +77,19 @@ class Run extends Command {
 
 			$output->writeln( "## {$version}" );
 
-			sort( $functions );
+			ksort( $functions );
 
 			$functions = array_unique( $functions );
 
-			foreach ( $functions as $function ) {
-				$output->writeln( "- `{$function}()`" );
+			foreach ( $functions as $function => $data ) {
+
+				$message = "- `{$function}()`";
+
+				if ( isset( $data['alt'] ) ) {
+					$message .= " (use `{$data['alt']}()` instead)";
+				}
+
+				$output->writeln( $message );
 			}
 
 			$output->writeln( '' );

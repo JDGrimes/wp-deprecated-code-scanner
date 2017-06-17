@@ -114,6 +114,7 @@ class NodeVisitor extends NodeVisitorAbstract {
 			return;
 		}
 
+		// Get the element name.
 		if ( $this->current_function ) {
 			$element = $this->current_function->name;
 		} elseif ( $this->current_class && $this->current_method ) {
@@ -124,29 +125,43 @@ class NodeVisitor extends NodeVisitorAbstract {
 
 		$function_data = $this->functions[ $function_name ];
 
+		// Get the version number.
 		if ( ! isset( $node->args[ $function_data['version_arg'] ] ) ) {
 			return;
 		}
 
-		$arg = $node->args[ $function_data['version_arg'] ];
+		$version_arg = $node->args[ $function_data['version_arg'] ];
 
 		if (
-			$arg->value instanceof Node\Scalar\String_
-			|| $arg->value instanceof Node\Scalar\LNumber
-			|| $arg->value instanceof Node\Scalar\DNumber
+			$version_arg->value instanceof Node\Scalar\String_
+			|| $version_arg->value instanceof Node\Scalar\LNumber
+			|| $version_arg->value instanceof Node\Scalar\DNumber
 		) {
 
-			$version = $arg->value->value;
+			$version = (string) $version_arg->value->value;
 
 		} else {
 
 			$version = '?';
 		}
 
+		// Get the alternative to this element.
+		$alt = null;
+
+		if ( isset( $node->args[ $function_data['alt_arg'] ] ) ) {
+
+			$alt_arg = $node->args[ $function_data['alt_arg'] ];
+
+			if ( $alt_arg->value instanceof Node\Scalar\String_ ) {
+				$alt = $alt_arg->value->value;
+			}
+		}
+
 		$this->collector->add(
 			$element
-			, $version
 			, $this->functions[ $function_name ]['type']
+			, $version
+			, $alt
 		);
 	}
 
