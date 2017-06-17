@@ -1,0 +1,24 @@
+# Travis CI configuration file.
+
+language: php
+
+php:
+    - 7.1
+    - 7.0
+    - 5.6
+    - 5.5
+    - 5.4
+    - 5.3
+    - 5.2
+
+sudo: false
+
+matrix:
+  include:
+    - php: nightly
+  allow_failures:
+    - php: nightly
+  fast_finish: true
+
+script:
+    - phpunit
