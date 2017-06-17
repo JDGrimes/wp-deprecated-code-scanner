@@ -77,6 +77,8 @@ class Run extends Command {
 
 			$output->writeln( "## {$version}" );
 
+			sort( $functions );
+
 			$functions = array_unique( $functions );
 
 			foreach ( $functions as $function ) {
