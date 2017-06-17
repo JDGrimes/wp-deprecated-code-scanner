@@ -20,5 +20,8 @@ matrix:
     - php: nightly
   fast_finish: true
 
+before_script:
+    - composer install
+
 script:
     - phpunit
