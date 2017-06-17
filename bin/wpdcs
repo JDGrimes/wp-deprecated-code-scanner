@@ -11,9 +11,17 @@ namespace WP_Deprecated_Code_Scanner\Console;
 require __DIR__ . '/../vendor/autoload.php';
 
 use Symfony\Component\Console\Application;
+use WP_Deprecated_Code_Scanner\Formatters;
+use WP_Deprecated_Code_Scanner\Formatter\Markdown;
+
+$formatters = new Formatters();
+$formatters->add( 'markdown', new Markdown() );
+
+$run = new Command\Run();
+$run->setFormatters( $formatters );
 
 $application = new Application();
-$application->add( new Command\Run() );
+$application->add( $run );
 $application->run();
 
 // EOF

@@ -16,6 +16,7 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Logger\ConsoleLogger;
 use Symfony\Component\Console\Output\OutputInterface;
 use WP_Deprecated_Code_Scanner\Config;
+use WP_Deprecated_Code_Scanner\Formatters;
 use WP_Deprecated_Code_Scanner\Scanner;
 
 /**
@@ -25,6 +26,26 @@ use WP_Deprecated_Code_Scanner\Scanner;
  * @since   0.1.0
  */
 class Run extends Command {
+
+	/**
+	 * The formatters to format the output.
+	 *
+	 * @since 0.1.0
+	 *
+	 * @var Formatters
+	 */
+	protected $formatters;
+
+	/**
+	 * Sets the formats.
+	 *
+	 * @since 0.1.0
+	 *
+	 * @param Formatters $formatters The formatters.
+	 */
+	public function setFormatters( Formatters $formatters ) {
+		$this->formatters = $formatters;
+	}
 
 	/**
 	 * @since 0.1.0
@@ -40,10 +61,11 @@ class Run extends Command {
 				, 'The file or directory to scan. Defaults to the current working directory'
 			)
 			->addOption(
-				'bootstrap'
-				, 'b'
+				'format'
+				, 'f'
 				, InputOption::VALUE_REQUIRED
-				, 'If set, the given bootstrap file will be loaded to supply custom configuration'
+				, 'The format for the output'
+				, 'markdown'
 			)
 		;
 	}
@@ -59,41 +81,22 @@ class Run extends Command {
 			$path = getcwd();
 		}
 
+		$format = $input->getOption( 'format' );
+
+		$formatter = $this->formatters->get( $format );
+
+		if ( ! $formatter ) {
+			$output->writeln( "Error: unknown format '{$format}'" );
+			return;
+		}
+
 		$config = new Config;
 		$logger = new ConsoleLogger( $output );
 		$scanner = new Scanner( $config, $logger );
 
 		$collector = $scanner->scan( $path );
 
-		$results = [];
-
-		foreach ( $collector->get() as $item ) {
-			$results[ $item['version'] ][ $item['element'] ] = $item;
-		}
-
-		ksort( $results );
-
-		foreach ( $results as $version => $functions ) {
-
-			$output->writeln( "## {$version}" );
-
-			ksort( $functions );
-
-			$functions = array_unique( $functions );
-
-			foreach ( $functions as $function => $data ) {
-
-				$message = "- `{$function}()`";
-
-				if ( isset( $data['alt'] ) ) {
-					$message .= " (use `{$data['alt']}()` instead)";
-				}
-
-				$output->writeln( $message );
-			}
-
-			$output->writeln( '' );
-		}
+		$output->write( $formatter->format( $collector ) );
 	}
 }
 
