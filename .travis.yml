@@ -7,9 +7,6 @@ php:
     - 7.0
     - 5.6
     - 5.5
-    - 5.4
-    - 5.3
-    - 5.2
 
 sudo: false
 
@@ -22,6 +19,10 @@ matrix:
 
 before_script:
     - composer install
+    - < if [[ ${TRAVIS_PHP_VERSION:0:2} == "7." || $TRAVIS_PHP_VERSION == nightly ]]; then
+       		export PATH="$HOME/.composer/vendor/bin:$PATH"
+       		composer global require "phpunit/phpunit=^5.7.15"
+       	fi
 
 script:
     - phpunit
