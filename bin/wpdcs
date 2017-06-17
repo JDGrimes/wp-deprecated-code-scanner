@@ -13,9 +13,11 @@ require __DIR__ . '/../vendor/autoload.php';
 use Symfony\Component\Console\Application;
 use WP_Deprecated_Code_Scanner\Formatters;
 use WP_Deprecated_Code_Scanner\Formatter\Markdown;
+use WP_Deprecated_Code_Scanner\Formatter\WPCS;
 
 $formatters = new Formatters();
 $formatters->add( 'markdown', new Markdown() );
+$formatters->add( 'wpcs', new WPCS() );
 
 $run = new Command\Run();
 $run->setFormatters( $formatters );
