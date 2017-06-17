@@ -1,0 +1,28 @@
+{
+    "name": "jdgrimes/wp-deprecated-code-scanner",
+    "description": "Scans a WordPress codebase to find all deprecated elements",
+    "keywords": ["WordPress"],
+    "homepage": "https://github.com/JDGrimes/wp-deprecated-code-scanner",
+    "type": "library",
+    "license": "MIT",
+    "authors":[
+        {
+            "name": "J.D. Grimes",
+            "email": "jdg@codesymphony.co",
+            "homepage": "https://codesymphony.co"
+        }
+    ],
+    "minimum-stability": "stable",
+
+    "require": {
+        "nikic/php-parser": "^2.1",
+        "symfony/console": "^3.1",
+        "psr/log": "^1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "WP_Deprecated_Code_Scanner\\": "src/"
+        }
+    },
+    "bin": [ "bin/wpdcs" ]
+}

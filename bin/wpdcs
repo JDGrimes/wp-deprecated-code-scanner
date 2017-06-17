@@ -1,0 +1,19 @@
+#!/usr/bin/env php
+<?php
+
+namespace WP_Deprecated_Code_Scanner\Console;
+
+/**
+ * Require the composer-generated autoloader.
+ *
+ * @since 0.1.0
+ */
+require __DIR__ . '/../vendor/autoload.php';
+
+use Symfony\Component\Console\Application;
+
+$application = new Application();
+$application->add( new Command\Run() );
+$application->run();
+
+// EOF
