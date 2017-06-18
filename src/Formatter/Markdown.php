@@ -28,32 +28,43 @@ class Markdown implements Formatter {
 
 		$results = [];
 
-		foreach ( $collector->get() as $item ) {
-			$results[ $item['version'] ][ $item['element'] ] = $item;
+		foreach ( $collector->get() as $type => $elements ) {
+			foreach ( $elements as $element ) {
+				$results[ $type ][ $element['version'] ][ $element['element'] ] = $element;
+			}
 		}
 
 		ksort( $results );
 
-		foreach ( $results as $version => $functions ) {
+		foreach ( $results as $type => $versions ) {
 
-			$output .= "## {$version}\n";
+			$type = ucfirst( $type );
 
-			ksort( $functions );
+			$output .= "# {$type}s\n\n";
 
-			$functions = array_unique( $functions );
+			ksort( $versions );
 
-			foreach ( $functions as $function => $data ) {
+			foreach ( $versions as $version => $functions ) {
 
-				$message = "- `{$function}()`";
+				$output .= "## {$version}\n";
 
-				if ( isset( $data['alt'] ) ) {
-					$message .= " (use `{$data['alt']}()` instead)";
+				ksort( $functions );
+
+				$functions = array_unique( $functions );
+
+				foreach ( $functions as $function => $data ) {
+
+					$message = "- `{$function}()`";
+
+					if ( isset( $data['alt'] ) ) {
+						$message .= " (use `{$data['alt']}()` instead)";
+					}
+
+					$output .= "{$message}\n";
 				}
 
-				$output .= "{$message}\n";
+				$output .= "\n";
 			}
-
-			$output .= "\n";
 		}
 
 		return $output;

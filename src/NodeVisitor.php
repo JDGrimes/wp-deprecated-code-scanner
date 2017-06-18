@@ -114,11 +114,14 @@ class NodeVisitor extends NodeVisitorAbstract {
 			return;
 		}
 
+		$type = $this->functions[ $function_name ]['type'];
+
 		// Get the element name.
 		if ( $this->current_function ) {
 			$element = $this->current_function->name;
 		} elseif ( $this->current_class && $this->current_method ) {
 			$element = "{$this->current_class->name}::{$this->current_method->name}";
+			$type = 'method';
 		} else {
 			return;
 		}
@@ -157,12 +160,7 @@ class NodeVisitor extends NodeVisitorAbstract {
 			}
 		}
 
-		$this->collector->add(
-			$element
-			, $this->functions[ $function_name ]['type']
-			, $version
-			, $alt
-		);
+		$this->collector->add( $element, $type, $version, $alt );
 	}
 
 	/**

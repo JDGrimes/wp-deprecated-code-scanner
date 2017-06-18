@@ -18,7 +18,7 @@ namespace WP_Deprecated_Code_Scanner;
 class Collector {
 
 	/**
-	 * The deprecated elements.
+	 * The deprecated elements, indexed by type.
 	 *
 	 * @since 0.1.0
 	 *
@@ -37,7 +37,7 @@ class Collector {
 	 * @param string $alt     The alternative, if any.
 	 */
 	public function add( $element, $type, $version, $alt = null ) {
-		$this->elements[] = [
+		$this->elements[ $type ][] = [
 			'element' => $element,
 			'version' => $version,
 			'alt'     => $alt,
@@ -50,7 +50,7 @@ class Collector {
 	 *
 	 * @since 0.1.0
 	 *
-	 * @return array
+	 * @return array The deprecated elements, indexed by type.
 	 */
 	public function get() {
 		return $this->elements;

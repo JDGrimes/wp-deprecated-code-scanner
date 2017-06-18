@@ -53,10 +53,6 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase {
 
 			$found = $collector->get();
 
-			foreach ( $found as &$item ) {
-				unset( $item['node'] );
-			}
-
 			$this->assertEquals( $this->expectations(), $found );
 
 		} catch ( Error $e ) {

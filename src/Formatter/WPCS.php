@@ -28,7 +28,9 @@ class WPCS implements Formatter {
 
 		$results = [];
 
-		foreach ( $collector->get() as $item ) {
+		$types = $collector->get();
+
+		foreach ( $types['function'] as $item ) {
 			$results[ $item['version'] ][ $item['element'] ] = $item;
 		}
 

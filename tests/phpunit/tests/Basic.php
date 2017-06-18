@@ -24,23 +24,27 @@ class Basic extends TestCase {
 	 */
 	public function expectations() {
 		return [
-			[
-				'version' => '4.8.0',
-				'type'    => 'function',
-				'element' => 'a',
-				'alt'     => null,
+			'function' => [
+				[
+					'version' => '4.8.0',
+					'type'    => 'function',
+					'element' => 'a',
+					'alt'     => null,
+				],
+				[
+					'version' => '4.5',
+					'type'    => 'function',
+					'element' => 'c',
+					'alt'     => 'd',
+				],
 			],
-			[
-				'version' => '1.2.3',
-				'type'    => 'function',
-				'element' => 'A::b',
-				'alt'     => null,
-			],
-			[
-				'version' => '4.5',
-				'type'    => 'function',
-				'element' => 'c',
-				'alt'     => 'd',
+			'method' => [
+				[
+					'version' => '1.2.3',
+					'type'    => 'method',
+					'element' => 'A::b',
+					'alt'     => null,
+				],
 			],
 		];
 	}
