@@ -42,9 +42,11 @@ class WPCS implements Formatter {
 
 			ksort( $functions );
 
-			$functions = array_unique( $functions );
-
 			foreach ( $functions as $function => $data ) {
+
+				if ( $data['alt'] ) {
+					$data['alt'] = str_replace( "'", "\\'", $data['alt'] );
+				}
 
 				$output .= "		'{$function}' => array(
 			'alt'     => '{$data['alt']}',
