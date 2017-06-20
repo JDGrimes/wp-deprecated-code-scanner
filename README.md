@@ -1,4 +1,4 @@
-# WP Deprecated Code Scanner
+# WP Deprecated Code Scanner [![Build Status](https://travis-ci.org/JDGrimes/wp-deprecated-code-scanner.svg?branch=master)](https://travis-ci.org/JDGrimes/wp-deprecated-code-scanner)
 
 Scans for all deprecated functions in a WordPress plugin, theme, or WordPress core.
 Note that it scans for the functions themselves, *not* usages.
