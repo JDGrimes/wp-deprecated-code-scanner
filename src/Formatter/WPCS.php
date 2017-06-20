@@ -31,7 +31,7 @@ class WPCS implements Formatter {
 		$types = $collector->get();
 
 		foreach ( $types['function'] as $item ) {
-			$results[ $item['version'] ][ $item['element'] ] = $item;
+			$results[ $item['version'] ][ strtolower( $item['element'] ) ] = $item;
 		}
 
 		ksort( $results );
