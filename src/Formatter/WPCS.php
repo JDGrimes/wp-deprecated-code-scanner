@@ -38,7 +38,7 @@ class WPCS implements Formatter {
 
 		foreach ( $results as $version => $functions ) {
 
-			$output .= "\n\t\t// {$version}\n";
+			$output .= "\n\t\t// WP {$version}.\n";
 
 			ksort( $functions, SORT_STRING | SORT_FLAG_CASE );
 
