@@ -50,7 +50,7 @@ class Markdown implements Formatter {
 
 				ksort( $functions );
 
-				$functions = array_unique( $functions );
+				$functions = array_unique( $functions, SORT_REGULAR );
 
 				foreach ( $functions as $function => $data ) {
 
